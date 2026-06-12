@@ -1,0 +1,211 @@
+# ============================================================
+# Abstract Design Prompt — inspired by takram.com
+# 具体的なコンテンツ・レイアウトを持たない、再利用可能なデザイン語彙集
+# Reference: https://www.takram.com/ja
+# ============================================================
+
+meta:
+  name: "Editorial Monochrome Minimal"
+  description: >
+    欧文グロテスクと日本語ゴシックを組み合わせた、
+    モノクロームに近い配色のエディトリアルミニマリズム。
+    余白・タイポグラフィ・比率のみで構成を語る知的なスタイル。
+  keywords:
+    - editorial
+    - monochrome
+    - minimal
+    - typographic
+    - intellectual
+    - sparse
+    - sharp
+
+# ── 雰囲気 ─────────────────────────────────────────────────
+atmosphere:
+  mood: editorial_minimalist         # 編集的な静けさ。情報を削ぎ落とした誌面感
+  feeling: intellectual_calm         # 知的で落ち着いた、押しつけがましくない佇まい
+  density: sparse                    # 余白を意図的に大きく取り、呼吸させる
+  motion: restrained                 # アニメーションは機能目的のみ。装飾には使わない
+  edge: sharp                        # 直線と面で構成。角丸を使わない
+  era: contemporary_european         # 現代ヨーロッパ系デザインの文脈
+
+# ── 配色 ────────────────────────────────────────────────────
+palette:
+  strategy: near_monochrome
+  description: >
+    カラーはほぼ使わず、明度差だけで奥行きと階層を出す。
+    彩度のある色はページ全体で 1 色以内。差別化はサイズ・ウェイト・余白で行う。
+
+  background:
+    primary:   "#ffffff"             # メイン背景 — 純白
+    secondary: "#fafafa"             # サブ背景 — わずかに落とした白
+    surface_dark: "#343434"          # 反転サーフェス（暗い強調ブロック用）
+
+  text:
+    primary:   "#1a1a1a"             # 本文・見出し — 黒に近いが純黒ではない
+    secondary: "#343434"             # サブ見出し・強調テキスト
+    muted:     "#686868"             # キャプション・補足情報
+    disabled:  "#9c9c9c"             # 非アクティブ・プレースホルダー
+    on_dark:   "#ffffff"             # surface_dark 上のテキスト
+
+  interactive:
+    default:   "#000000"             # リンク・ボタンのデフォルト色
+    hover:     "#343434"             # ホバー時（明度を少し落とす程度）
+
+  border:
+    default:   "#e0e0e0"             # 罫線 — 薄いグレーのみ
+    width:     "1px"
+
+  accent:
+    # 原則として使わない。
+    # ブランドカラーが必要な場合のみ、surface_dark (#343434) を転用する。
+    use_sparingly: true
+
+# ── タイポグラフィ ───────────────────────────────────────────
+typography:
+  philosophy: >
+    フォントのウェイトは Regular (400) 以下を基本とする。
+    存在感はサイズと間隔で出し、Bold に頼らない。
+    欧文はニュートラルなグロテスク体、日本語はゴシック体で統一する。
+
+  font_stack:
+    latin:
+      style:    "grotesque sans-serif"
+      example:  "Theinhardt, Helvetica Neue, Arial"
+      fallback: "sans-serif"
+    japanese:
+      style:    "gothic sans-serif"
+      example:  "KoburinaGoStdN-W3, YuGothic, Hiragino Sans"
+      fallback: "sans-serif"
+
+  scale:
+    display:
+      description:    "ページの主役となる大見出し"
+      size:           "clamp(48px, 8vw, 80px)"
+      weight:         400
+      letter_spacing: "-0.04em"        # タイトに詰める
+      line_height:    1.0              # 行間を開けない
+
+    heading:
+      description:    "セクション見出し"
+      size:           "clamp(28px, 4vw, 48px)"
+      weight:         400
+      letter_spacing: "-0.02em"
+      line_height:    1.1
+
+    subheading:
+      size:           "16px"
+      weight:         300
+      letter_spacing: "0em"
+      line_height:    1.0
+
+    body:
+      size:           "16px"
+      weight:         300
+      letter_spacing: "0em"
+      line_height:    1.6              # 本文は読みやすく行間を確保
+
+    caption:
+      size:           "12px"
+      weight:         400
+      letter_spacing: "0.02em"
+      line_height:    1.4
+
+# ── スペーシング ─────────────────────────────────────────────
+spacing:
+  philosophy: >
+    余白はコンテンツの一部として扱う。詰め込まない。
+    セクション間は大きく開け、ページに呼吸を与える。
+  base_unit:         "8px"
+  horizontal_gutter: "24px"           # ページ左右の最小余白
+  section_gap:       "96px"           # セクション間の縦余白
+  content_max_width: "1200px"
+
+# ── シェイプ ─────────────────────────────────────────────────
+shape:
+  border_radius: "0px"                # 角丸を使わない。面は直角で切る
+  shadow:        "none"               # 影を使わない。奥行きは面の重なりで表現
+  border_color:  "#e0e0e0"
+  border_width:  "1px"
+
+# ── メディア（画像・動画）──────────────────────────────────
+media:
+  fit:            "cover"             # 基本は center cover でトリミング
+  border_radius:  "0px"               # 画像にも角丸なし
+  treatment:      full_bleed          # 端まで広げる。枠線・余白を付けない
+  aspect_ratios:
+    hero:         "16/9 または自由"
+    card:         "3/2"
+    thumbnail:    "1/1"
+
+# ── モーション ───────────────────────────────────────────────
+motion:
+  philosophy: functional_only        # 視線誘導・状態変化の伝達のみ。装飾は禁止
+  transitions:
+    default:   "opacity 0.3s ease-in-out"
+    hover:     "color 0.2s ease, opacity 0.2s ease"
+    reveal:    "opacity 0.3s ease-in-out"   # コンテンツのフェードイン
+
+  avoid:
+    - "bounce / spring 系のイージング"
+    - "要素が飛んでくるスライドイン"
+    - "パーティクル・グリッチ等の装飾エフェクト"
+    - "スクロール連動の過剰なパラレックス"
+
+# ── インタラクション ─────────────────────────────────────────
+interaction:
+  link_style:   "hover 時のみ下線または opacity 変化"
+  button_style: "テキストのみ、またはフラットな枠線ボタン"
+  hover_effect: "opacity 変化か色変化のみ。transform/lift は使わない"
+  cursor:       "デフォルトカーソル（カスタムカーソルは使わない）"
+
+# ── このスタイルの禁止事項 ────────────────────────────────────
+avoid:
+  - "グラデーション背景"
+  - "カラフルなアクセントカラー（2色以上）"
+  - "ドロップシャドウ / box-shadow"
+  - "border-radius > 0px"
+  - "装飾的なアイコン・イラスト"
+  - "過剰なアニメーション・トランジション"
+  - "font-weight 700 (Bold) 以上の多用"
+  - "背景に模様・テクスチャ・グレイン"
+  - "カード内の影による浮き上がりエフェクト"
+
+# ── デザイン原則 ─────────────────────────────────────────────
+principles:
+  - name: "タイポグラフィが主役"
+    rule: >
+      見出しは大きく・軽く・詰めて設定する。
+      フォントの存在感だけで視覚的階層を作る。
+
+  - name: "余白は設計する"
+    rule: >
+      余白は「何もない空間」ではなく、コンテンツを際立たせる要素。
+      セクション間の縦余白は 96px 以上を基本とする。
+
+  - name: "色ではなく比率で語る"
+    rule: >
+      色の増減より、サイズ・ウェイト・間隔の比率で情報の重要度を伝える。
+      カラーに頼ったハイライトはしない。
+
+  - name: "面は直角で切る"
+    rule: >
+      border-radius は 0px。角丸はこのスタイルの文脈では親しみやすさではなく
+      「緩さ」として機能するため使用しない。
+
+  - name: "動きは最小限に、意味を持って"
+    rule: >
+      アニメーションは「状態が変わったことを伝える」目的のみ。
+      ユーザーが驚いたり、注目を奪われるような動きは避ける。
+
+# ── このスタイルが合う用途 ──────────────────────────────────
+best_fit_for:
+  - "デザイン・建築・クリエイティブ系スタジオのコーポレートサイト"
+  - "テック企業・AIプロダクトのコーポレート / LP"
+  - "ポートフォリオ（写真・映像・デザイン・エンジニアリング）"
+  - "雑誌・メディア系サイト"
+  - "SaaS / B2B プロダクトのマーケティングサイト"
+
+not_suitable_for:
+  - "子ども向け・エンタメ系サービス（明るさ・カラフルさが必要）"
+  - "ECサイトの商品カード（温かみのある角丸が有効な場面）"
+  - "ゲーム・スポーツ系（動きとエネルギーが求められる）"

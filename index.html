@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Claude Code を活用した AI 開発の実績ポートフォリオ">
+  <title>AI Dev Portfolio — Hiroshi Yajima</title>
+  <style>
+    *, *::before, *::after {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+
+    :root {
+      --white:      #ffffff;
+      --off-white:  #fafafa;
+      --text-1:     #1a1a1a;
+      --text-2:     #343434;
+      --text-3:     #686868;
+      --text-4:     #9c9c9c;
+      --border:     #e0e0e0;
+      --dark-surf:  #343434;
+      --gutter:     24px;
+      --max-w:      1200px;
+      --section-gap: 96px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--text-1);
+      font-family: "Helvetica Neue", Arial,
+        "Hiragino Sans", "Yu Gothic", "YuGothic", sans-serif;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Nav ─────────────────────────────────────── */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      height: 56px;
+      display: flex; align-items: center;
+      padding: 0 var(--gutter);
+    }
+    .nav__inner {
+      width: 100%; max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav__logo {
+      font-size: 13px; font-weight: 400;
+      letter-spacing: 0.06em; color: var(--text-1);
+      text-decoration: none; text-transform: uppercase;
+    }
+    .nav__links { display: flex; gap: 32px; list-style: none; }
+    .nav__links a {
+      font-size: 13px; font-weight: 300;
+      color: var(--text-3); text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .nav__links a:hover { color: var(--text-1); }
+
+    /* ─── Hero ────────────────────────────────────── */
+    .hero {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: var(--section-gap) var(--gutter);
+      border-bottom: 1px solid var(--border);
+    }
+    .hero__label {
+      font-size: 11px; font-weight: 400;
+      letter-spacing: 0.12em; color: var(--text-4);
+      text-transform: uppercase; margin-bottom: 28px;
+    }
+    .hero__title {
+      font-size: clamp(52px, 9vw, 88px);
+      font-weight: 400;
+      letter-spacing: -0.04em;
+      line-height: 1.0;
+      color: var(--text-1);
+      margin-bottom: 40px;
+    }
+    .hero__body {
+      font-size: 15px; font-weight: 300;
+      color: var(--text-3); line-height: 1.7;
+      max-width: 440px;
+    }
+    .hero__meta {
+      margin-top: 56px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      display: flex; gap: 40px;
+    }
+    .hero__stat { }
+    .hero__stat dt {
+      font-size: 11px; font-weight: 400;
+      letter-spacing: 0.08em; color: var(--text-4);
+      text-transform: uppercase; margin-bottom: 6px;
+    }
+    .hero__stat dd {
+      font-size: 22px; font-weight: 400;
+      letter-spacing: -0.02em; color: var(--text-1);
+    }
+
+    /* ─── Works ───────────────────────────────────── */
+    .works {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: var(--section-gap) var(--gutter);
+    }
+    .section-header {
+      display: flex; align-items: baseline; gap: 12px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 14px; margin-bottom: 0;
+    }
+    .section-header h2 {
+      font-size: clamp(26px, 3.5vw, 40px);
+      font-weight: 400; letter-spacing: -0.02em; line-height: 1.1;
+      color: var(--text-1);
+    }
+    .section-header .count {
+      font-size: 11px; color: var(--text-4);
+      font-weight: 400; letter-spacing: 0.06em;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+      border: 1px solid var(--border);
+      border-top: none;
+    }
+
+    .card {
+      background: var(--white);
+      transition: background 0.2s ease;
+      border-right: 1px solid var(--border);
+    }
+    .card:last-child { border-right: none; }
+    .card:hover { background: var(--off-white); }
+
+    .card__screen {
+      background: #0a0c0f;
+      border-bottom: 1px solid var(--border);
+    }
+    .card__bar {
+      display: flex; align-items: center; gap: 5px;
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .card__bar span {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+    }
+    .card__screen img {
+      width: 100%; display: block;
+      opacity: 0.92;
+      transition: opacity 0.3s ease-in-out;
+    }
+    .card:hover .card__screen img { opacity: 1; }
+
+    .card__body { padding: 32px 32px 36px; }
+    .card__index {
+      font-size: 11px; font-weight: 400;
+      letter-spacing: 0.08em; color: var(--text-4);
+      margin-bottom: 14px;
+    }
+    .card__title {
+      font-size: 20px; font-weight: 400;
+      letter-spacing: -0.015em; line-height: 1.3;
+      color: var(--text-1); margin-bottom: 14px;
+    }
+    .card__desc {
+      font-size: 13px; font-weight: 300;
+      color: var(--text-3); line-height: 1.75;
+      margin-bottom: 28px;
+    }
+    .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .tag {
+      font-size: 11px; font-weight: 400;
+      color: var(--text-3); letter-spacing: 0.04em;
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+    .tag:hover { color: var(--text-1); border-color: var(--text-3); }
+
+    /* ─── About ───────────────────────────────────── */
+    .about {
+      background: var(--dark-surf);
+      color: var(--white);
+    }
+    .about__inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: var(--section-gap) var(--gutter);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .about__heading {
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 400; letter-spacing: -0.03em;
+      line-height: 1.0; color: var(--white);
+    }
+    .about__right { }
+    .about__label {
+      font-size: 11px; font-weight: 400;
+      letter-spacing: 0.1em; color: rgba(255,255,255,0.4);
+      text-transform: uppercase; margin-bottom: 20px;
+    }
+    .about__text {
+      font-size: 15px; font-weight: 300;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.8; margin-bottom: 40px;
+    }
+    .stack-list {
+      display: flex; flex-direction: column; gap: 0;
+      border-top: 1px solid rgba(255,255,255,0.12);
+    }
+    .stack-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    .stack-item dt {
+      font-size: 13px; font-weight: 300;
+      color: rgba(255,255,255,0.5); letter-spacing: 0.02em;
+    }
+    .stack-item dd {
+      font-size: 13px; font-weight: 400;
+      color: rgba(255,255,255,0.9);
+    }
+
+    /* ─── Footer ──────────────────────────────────── */
+    .footer {
+      border-top: 1px solid var(--border);
+    }
+    .footer__inner {
+      max-width: var(--max-w); margin: 0 auto;
+      padding: 32px var(--gutter);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer__left {
+      font-size: 12px; color: var(--text-4); font-weight: 400;
+    }
+    .footer__right {
+      font-size: 12px; color: var(--text-4); font-weight: 300;
+    }
+
+    /* ─── Responsive ──────────────────────────────── */
+    @media (max-width: 768px) {
+      .grid { grid-template-columns: 1fr; }
+      .card { border-right: none; border-bottom: 1px solid var(--border); }
+      .about__inner { grid-template-columns: 1fr; gap: 40px; }
+      .hero__meta { flex-wrap: wrap; gap: 24px; }
+      .nav__links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <header>
+    <nav class="nav">
+      <div class="nav__inner">
+        <a class="nav__logo" href="#">Hiroshi Yajima</a>
+        <ul class="nav__links">
+          <li><a href="#works">Works</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="mailto:yajima@mediaid.co.jp">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <p class="hero__label">AI × Development Portfolio</p>
+    <h1 class="hero__title">Built with<br>Claude Code</h1>
+    <p class="hero__body">
+      Claude Code を中心に据えた AI 駆動の開発ワークフローと、
+      その成果物をまとめたポートフォリオです。
+    </p>
+    <dl class="hero__meta">
+      <div class="hero__stat">
+        <dt>Model</dt>
+        <dd>Sonnet 4.6</dd>
+      </div>
+      <div class="hero__stat">
+        <dt>Works</dt>
+        <dd>02</dd>
+      </div>
+      <div class="hero__stat">
+        <dt>Year</dt>
+        <dd>2026</dd>
+      </div>
+    </dl>
+  </section>
+
+  <!-- Works -->
+  <section class="works" id="works">
+    <div class="section-header">
+      <h2>Works</h2>
+      <span class="count">02 projects</span>
+    </div>
+    <div class="grid">
+
+      <article class="card">
+        <div class="card__screen">
+          <div class="card__bar">
+            <span></span><span></span><span></span>
+          </div>
+          <img src="work-01.png" alt="Claude Code プロジェクト管理画面" loading="lazy">
+        </div>
+        <div class="card__body">
+          <p class="card__index">01</p>
+          <h3 class="card__title">Claude Code による<br>プロジェクト管理</h3>
+          <p class="card__desc">
+            複数プロジェクトのセッション管理・スキル・サブエージェントを活用した
+            AI 駆動の開発ワークフロー。Routines・Cowork・カスタムコマンドを組み合わせ、
+            反復作業を自動化した実例。
+          </p>
+          <div class="tags">
+            <span class="tag">Claude Code</span>
+            <span class="tag">AI Workflow</span>
+            <span class="tag">Sonnet 4.6</span>
+            <span class="tag">Multi-agent</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card__screen">
+          <div class="card__bar">
+            <span></span><span></span><span></span>
+          </div>
+          <img src="work-02.png" alt="GitHub Co-authored コミット" loading="lazy">
+        </div>
+        <div class="card__body">
+          <p class="card__index">02</p>
+          <h3 class="card__title">AI Co-Authored<br>GitHub コミット</h3>
+          <p class="card__desc">
+            Claude Sonnet 4.6 との共同コミットによるコード変更の実例。
+            AI ペアプログラミングにより README の更新・リファクタリングを実施。
+            Co-Authored-By メタデータで貢献を透明化。
+          </p>
+          <div class="tags">
+            <span class="tag">GitHub</span>
+            <span class="tag">Co-authored</span>
+            <span class="tag">Claude Sonnet</span>
+            <span class="tag">Pair Programming</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="about" id="about">
+    <div class="about__inner">
+      <div class="about__left">
+        <h2 class="about__heading">AI-first<br>Development</h2>
+      </div>
+      <div class="about__right">
+        <p class="about__label">About</p>
+        <p class="about__text">
+          AI ツールを開発フローの中心に置き、設計・実装・レビューの各フェーズで
+          Claude Code を活用しています。人間の判断と AI の実行力を組み合わせることで、
+          より速く・より確実なアウトプットを目指しています。
+        </p>
+        <dl class="stack-list">
+          <div class="stack-item">
+            <dt>Primary AI</dt>
+            <dd>Claude Code (Sonnet 4.6)</dd>
+          </div>
+          <div class="stack-item">
+            <dt>Version Control</dt>
+            <dd>GitHub</dd>
+          </div>
+          <div class="stack-item">
+            <dt>Workflow</dt>
+            <dd>Multi-agent / Skills / Routines</dd>
+          </div>
+          <div class="stack-item">
+            <dt>Contact</dt>
+            <dd>yajima@mediaid.co.jp</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <span class="footer__left">© 2026 Hiroshi Yajima</span>
+      <span class="footer__right">Powered by Claude Code</span>
+    </div>
+  </footer>
+
+</body>
+</html>
