@@ -63,10 +63,10 @@
     .nav__links { display: flex; gap: 32px; list-style: none; }
     .nav__links a {
       font-size: 13px; font-weight: 300;
-      color: var(--text-3); text-decoration: none;
+      color: #000000; text-decoration: none;
       transition: color 0.2s ease;
     }
-    .nav__links a:hover { color: var(--text-1); }
+    .nav__links a:hover { color: #343434; }
 
     /* ─── Hero ────────────────────────────────────── */
     .hero {
@@ -81,7 +81,7 @@
       text-transform: uppercase; margin-bottom: 28px;
     }
     .hero__title {
-      font-size: clamp(52px, 9vw, 88px);
+      font-size: clamp(48px, 8vw, 80px);
       font-weight: 400;
       letter-spacing: -0.04em;
       line-height: 1.0;
@@ -99,7 +99,7 @@
       border-top: 1px solid var(--border);
       display: flex; gap: 40px;
     }
-    .hero__stat { }
+
     .hero__stat dt {
       font-size: 11px; font-weight: 400;
       letter-spacing: 0.08em; color: var(--text-4);
@@ -122,7 +122,7 @@
       padding-bottom: 14px; margin-bottom: 0;
     }
     .section-header h2 {
-      font-size: clamp(26px, 3.5vw, 40px);
+      font-size: clamp(28px, 4vw, 48px);
       font-weight: 400; letter-spacing: -0.02em; line-height: 1.1;
       color: var(--text-1);
     }
@@ -209,7 +209,7 @@
     }
     .about__heading {
       font-size: clamp(32px, 5vw, 56px);
-      font-weight: 400; letter-spacing: -0.03em;
+      font-weight: 400; letter-spacing: -0.04em;
       line-height: 1.0; color: var(--white);
     }
 
@@ -277,12 +277,13 @@
         <ul class="nav__links">
           <li><a href="#works">Works</a></li>
           <li><a href="#about">About</a></li>
-          <li><a href="mailto:yajima@mediaid.co.jp">Contact</a></li>
+          <li><a class="js-mail-contact" href="#">Contact</a></li>
         </ul>
       </div>
     </nav>
   </header>
 
+  <main>
   <!-- Hero -->
   <section class="hero">
     <p class="hero__label">AI × Development Portfolio</p>
@@ -344,7 +345,7 @@
           <div class="card__bar" aria-hidden="true">
             <span></span><span></span><span></span>
           </div>
-          <img src="work-02.png" alt="GitHub Co-authored コミット" width="1902" height="847" loading="lazy">
+          <img src="work-02.png" alt="GitHub Co-authored コミット" width="1902" height="847" loading="eager">
         </div>
         <div class="card__body">
           <p class="card__index">02</p>
@@ -394,12 +395,14 @@
           </div>
           <div class="stack-item">
             <dt>Contact</dt>
-            <dd>yajima@mediaid.co.jp</dd>
+            <dd class="js-mail-display"></dd>
           </div>
         </dl>
       </div>
     </div>
   </section>
+
+  </main>
 
   <!-- Footer -->
   <footer class="footer">
@@ -409,5 +412,12 @@
     </div>
   </footer>
 
+  <script>
+    (function(){
+      var u="yajima",d="mediaid.co.jp",e=u+"@"+d;
+      document.querySelectorAll(".js-mail-contact").forEach(function(a){a.href="mailto:"+e;});
+      document.querySelectorAll(".js-mail-display").forEach(function(el){el.textContent=e;});
+    })();
+  </script>
 </body>
 </html>
