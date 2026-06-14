@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Claude Code を活用した AI 開発の実績ポートフォリオ">
   <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; style-src 'unsafe-inline'; img-src 'self' data:">
+        content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self' data:">
   <meta http-equiv="X-Frame-Options" content="DENY">
   <link rel="preload" as="image" href="work-01.png" fetchpriority="high">
   <title>AI Dev Portfolio — Hiroshi Yajima</title>
@@ -19,13 +19,33 @@
       --off-white:  #fafafa;
       --text-1:     #1a1a1a;
       --text-2:     #343434;
-      --text-3:     #686868;
-      --text-4:     #9c9c9c;
+      --text-3:     #595959;
+      --text-4:     #767676;
       --border:     #e0e0e0;
       --dark-surf:  #343434;
       --gutter:     24px;
       --max-w:      1200px;
       --section-gap: 96px;
+      --nav-h:      56px;
+      --hero-body-w: 440px;
+      --about-gap:  64px;
+      --interactive: #000000;
+      --interactive-hover: #343434;
+    }
+
+    /* ─── Skip Navigation ────────────────────────── */
+    .skip-link {
+      position: absolute; top: -100%; left: 0;
+      background: var(--text-1); color: var(--white);
+      padding: 8px 16px; font-size: 14px; font-weight: 400;
+      z-index: 9999; text-decoration: none;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ─── Focus ───────────────────────────────────── */
+    :focus-visible {
+      outline: 2px solid var(--interactive);
+      outline-offset: 3px;
     }
 
     html { scroll-behavior: smooth; }
@@ -46,7 +66,7 @@
       position: sticky; top: 0; z-index: 100;
       background: var(--white);
       border-bottom: 1px solid var(--border);
-      height: 56px;
+      height: var(--nav-h);
       display: flex; align-items: center;
       padding: 0 var(--gutter);
     }
@@ -62,11 +82,12 @@
     }
     .nav__links { display: flex; gap: 32px; list-style: none; }
     .nav__links a {
+      display: inline-flex; align-items: center; min-height: 44px;
       font-size: 13px; font-weight: 300;
-      color: #000000; text-decoration: none;
+      color: var(--interactive); text-decoration: none;
       transition: color 0.2s ease;
     }
-    .nav__links a:hover { color: #343434; }
+    .nav__links a:hover { color: var(--interactive-hover); }
 
     /* ─── Hero ────────────────────────────────────── */
     .hero {
@@ -91,7 +112,7 @@
     .hero__body {
       font-size: 15px; font-weight: 300;
       color: var(--text-3); line-height: 1.7;
-      max-width: 440px;
+      max-width: var(--hero-body-w);
     }
     .hero__meta {
       margin-top: 56px;
@@ -204,7 +225,7 @@
       padding: var(--section-gap) var(--gutter);
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 64px;
+      gap: var(--about-gap);
       align-items: start;
     }
     .about__heading {
@@ -215,7 +236,7 @@
 
     .about__label {
       font-size: 11px; font-weight: 400;
-      letter-spacing: 0.1em; color: rgba(255,255,255,0.4);
+      letter-spacing: 0.1em; color: rgba(255,255,255,0.65);
       text-transform: uppercase; margin-bottom: 20px;
     }
     .about__text {
@@ -234,7 +255,7 @@
     }
     .stack-item dt {
       font-size: 13px; font-weight: 300;
-      color: rgba(255,255,255,0.5); letter-spacing: 0.02em;
+      color: rgba(255,255,255,0.6); letter-spacing: 0.02em;
     }
     .stack-item dd {
       font-size: 13px; font-weight: 400;
@@ -263,15 +284,17 @@
       .card { border-right: none; border-bottom: 1px solid var(--border); }
       .about__inner { grid-template-columns: 1fr; gap: 40px; }
       .hero__meta { flex-wrap: wrap; gap: 24px; }
+      /* TODO: モバイルナビはハンバーガーメニュー実装まで暫定非表示 */
       .nav__links { display: none; }
     }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">メインコンテンツにスキップ</a>
 
   <!-- Nav -->
   <header>
-    <nav class="nav">
+    <nav class="nav" aria-label="メインナビゲーション">
       <div class="nav__inner">
         <a class="nav__logo" href="#">Hiroshi Yajima</a>
         <ul class="nav__links">
@@ -283,9 +306,9 @@
     </nav>
   </header>
 
-  <main>
+  <main id="main-content">
   <!-- Hero -->
-  <section class="hero">
+  <section class="hero" aria-label="ヒーロー — AI Dev Portfolio">
     <p class="hero__label">AI × Development Portfolio</p>
     <h1 class="hero__title">Built with<br>Claude Code</h1>
     <p class="hero__body">
@@ -309,9 +332,9 @@
   </section>
 
   <!-- Works -->
-  <section class="works" id="works">
+  <section class="works" id="works" aria-labelledby="works-heading">
     <div class="section-header">
-      <h2>Works</h2>
+      <h2 id="works-heading">Works</h2>
       <span class="count">02 projects</span>
     </div>
     <div class="grid">
@@ -321,10 +344,10 @@
           <div class="card__bar" aria-hidden="true">
             <span></span><span></span><span></span>
           </div>
-          <img src="work-01.png" alt="Claude Code プロジェクト管理画面" width="1152" height="963" loading="eager" fetchpriority="high">
+          <img src="work-01.png" alt="Claude Code プロジェクト管理画面" width="1152" height="963" loading="eager" fetchpriority="high" onerror="this.onerror=null;this.alt='画像を読み込めませんでした';this.style.opacity='0.3';">
         </div>
         <div class="card__body">
-          <p class="card__index">01</p>
+          <p class="card__index" aria-label="プロジェクト 01">01</p>
           <h3 class="card__title">Claude Code による<br>プロジェクト管理</h3>
           <p class="card__desc">
             複数プロジェクトのセッション管理・スキル・サブエージェントを活用した
@@ -345,10 +368,10 @@
           <div class="card__bar" aria-hidden="true">
             <span></span><span></span><span></span>
           </div>
-          <img src="work-02.png" alt="GitHub Co-authored コミット" width="1902" height="847" loading="eager">
+          <img src="work-02.png" alt="GitHub Co-authored コミット" width="1902" height="847" loading="eager" fetchpriority="low" onerror="this.onerror=null;this.alt='画像を読み込めませんでした';this.style.opacity='0.3';">
         </div>
         <div class="card__body">
-          <p class="card__index">02</p>
+          <p class="card__index" aria-label="プロジェクト 02">02</p>
           <h3 class="card__title">AI Co-Authored<br>GitHub コミット</h3>
           <p class="card__desc">
             Claude Sonnet 4.6 との共同コミットによるコード変更の実例。
@@ -368,12 +391,12 @@
   </section>
 
   <!-- About -->
-  <section class="about" id="about">
+  <section class="about" id="about" aria-labelledby="about-heading">
     <div class="about__inner">
-      <div class="about__left">
-        <h2 class="about__heading">AI-first<br>Development</h2>
+      <div class="about__headline">
+        <h2 class="about__heading" id="about-heading">AI-first<br>Development</h2>
       </div>
-      <div class="about__right">
+      <div class="about__detail">
         <p class="about__label">About</p>
         <p class="about__text">
           AI ツールを開発フローの中心に置き、設計・実装・レビューの各フェーズで
@@ -414,10 +437,20 @@
 
   <script>
     (function(){
-      var u="yajima",d="mediaid.co.jp",e=u+"@"+d;
-      document.querySelectorAll(".js-mail-contact").forEach(function(a){a.href="mailto:"+e;});
-      document.querySelectorAll(".js-mail-display").forEach(function(el){el.textContent=e;});
+      try {
+        var u="yajima",d="mediaid.co.jp",e=u+"@"+d;
+        document.querySelectorAll(".js-mail-contact").forEach(function(a){a.href="mailto:"+e;});
+        document.querySelectorAll(".js-mail-display").forEach(function(el){el.textContent=e;});
+      } catch(err) {
+        console.warn("メールアドレスの設定に失敗しました:", err);
+      }
     })();
   </script>
+  <noscript>
+    <style>.js-mail-noscript { display: inline; }</style>
+  </noscript>
+  <span class="js-mail-noscript" style="display:none">
+    お問い合わせ: yajima[at]mediaid.co.jp
+  </span>
 </body>
 </html>
